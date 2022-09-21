@@ -9,10 +9,10 @@ def int_to_roman(num: int) -> str:
     translator = {'M': 1000, 'CM': 900, 'D': 500, 'CD': 400, 'C': 100, 'XC': 90,
                   'L': 50, 'XL': 40, 'X': 10, 'IX': 9, 'V': 5, 'IV': 4, 'I': 1}
     ans = ''
-    for key, item in translator.items():
-        count = num // item
-        ans += count * key
-        num -= count * item
+    for rom_num, int_num in translator.items():
+        count = num // int_num
+        ans += count * rom_num
+        num -= count * int_num
     return ans
 
 
