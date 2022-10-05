@@ -51,4 +51,10 @@ def cosine_distance(X: np.ndarray, Y: np.ndarray) -> np.ndarray:
     Вычислить матрицу косинусных расстояний между объектами X и Y.
     В случае равенства хотя бы одно из двух векторов 0, косинусное расстояние считать равным 1.
     """
-    pass
+    Xnorm = np.linalg.norm(X, axis=1)
+    Ynorm = np.linalg.norm(Y, axis=1)
+    X = X / Xnorm[:, np.newaxis]
+    Y = Y / Ynorm[:, np.newaxis]
+    res = np.dot(X, Y.T)
+    res[np.dot(Xnorm.reshape((-1, 1)), Ynorm.reshape((1, -1))) == 0] = 1
+    return res

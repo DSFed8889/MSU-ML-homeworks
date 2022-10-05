@@ -62,11 +62,11 @@ def rle_scalar(x: List[List[int]], y:  List[List[int]]) -> int:
     """
     res = 0
     x_decode = []
-    for i in range(len(x)):
-        x_decode += [x[i][0]] * x[i][1]
     y_decode = []
-    for i in range(len(y)):
-        y_decode += [y[i][0]] * y[i][1]
+    for v in x:
+        x_decode += [v[0]] * v[1]
+    for v in y:
+        y_decode += [v[0]] * v[1]
     if len(x_decode) != len(y_decode):
         return -1
     for i in range(len(x_decode)):
@@ -79,5 +79,20 @@ def cosine_distance(X: List[List[float]], Y: List[List[float]]) -> List[List[flo
     Вычислить матрицу косинусных расстояний между объектами X и Y. 
     В случае равенства хотя бы одно из двух векторов 0, косинусное расстояние считать равным 1.
     """
-
-    pass
+    res = []
+    for i in range(len(X)):
+        res.append([0] * len(Y))
+    for i in range(len(X)):
+        for j in range(len(Y)):
+            scalar = 0
+            normx = 0
+            normy = 0
+            for ii in range(len(X[0])):
+                scalar += X[i][ii] * Y[j][ii]
+                normx += X[i][ii] * X[i][ii]
+                normy += Y[j][ii] * Y[j][ii]
+            if normx > 0 and normy > 0:
+                res[i][j] = scalar / (normx * normy) ** 0.5
+            else:
+                res[i][j] = 1
+    return res
